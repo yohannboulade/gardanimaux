@@ -263,6 +263,45 @@ class _FavorisWidgetState extends State<FavorisWidget> {
                                             },
                                           ),
                                         ),
+                                        if ((currentUserDocument
+                                                        ?.favoriteProvider
+                                                        ?.toList() ??
+                                                    [])
+                                                .length <=
+                                            0)
+                                          AuthUserStreamWidget(
+                                            builder: (context) => Text(
+                                              'Vous n\'avez pas de favoris',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font: GoogleFonts.rubik(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                            ),
+                                          ),
                                       ],
                                     ),
                                   ),
@@ -274,13 +313,16 @@ class _FavorisWidgetState extends State<FavorisWidget> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
-                    child: wrapWithModel(
-                      model: _model.seashModel,
-                      updateCallback: () => safeSetState(() {}),
-                      child: SeashWidget(),
+                  Align(
+                    alignment: AlignmentDirectional(0.0, 0.0),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
+                      child: wrapWithModel(
+                        model: _model.seashModel,
+                        updateCallback: () => safeSetState(() {}),
+                        child: SeashWidget(),
+                      ),
                     ),
                   ),
                   wrapWithModel(

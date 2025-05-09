@@ -134,78 +134,125 @@ class _InboxWidgetState extends State<InboxWidget> {
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                            ),
-                          ),
-                          StreamBuilder<List<MyMessagesRecord>>(
-                            stream: queryMyMessagesRecord(
-                              parent: currentUserReference,
-                              queryBuilder: (myMessagesRecord) =>
-                                  myMessagesRecord.orderBy('last_update'),
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
-                                    ),
+                      child: FutureBuilder<int>(
+                        future: queryMyMessagesRecordCount(
+                          parent: currentUserReference,
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
                                   ),
-                                );
-                              }
-                              List<MyMessagesRecord>
-                                  listViewMyMessagesRecordList = snapshot.data!;
+                                ),
+                              ),
+                            );
+                          }
+                          int columnCount = snapshot.data!;
 
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listViewMyMessagesRecordList.length,
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewMyMessagesRecord =
-                                      listViewMyMessagesRecordList[
-                                          listViewIndex];
-                                  return InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      context.pushNamed(
-                                        MessagesPageWidget.routeName,
-                                        queryParameters: {
-                                          'messagesId': serializeParam(
-                                            listViewMyMessagesRecord
-                                                .messagesRef,
-                                            ParamType.DocumentReference,
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              StreamBuilder<List<MyMessagesRecord>>(
+                                stream: queryMyMessagesRecord(
+                                  parent: currentUserReference,
+                                  queryBuilder: (myMessagesRecord) =>
+                                      myMessagesRecord.orderBy('last_update'),
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
                                           ),
-                                        }.withoutNulls,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<MyMessagesRecord>
+                                      listViewMyMessagesRecordList =
+                                      snapshot.data!;
+
+                                  return ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount:
+                                        listViewMyMessagesRecordList.length,
+                                    itemBuilder: (context, listViewIndex) {
+                                      final listViewMyMessagesRecord =
+                                          listViewMyMessagesRecordList[
+                                              listViewIndex];
+                                      return InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed(
+                                            MessagesPageWidget.routeName,
+                                            queryParameters: {
+                                              'messagesId': serializeParam(
+                                                listViewMyMessagesRecord
+                                                    .messagesRef,
+                                                ParamType.DocumentReference,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        },
+                                        child: InboxMessageItemWidget(
+                                          key: Key(
+                                              'Key4mc_${listViewIndex}_of_${listViewMyMessagesRecordList.length}'),
+                                          messageId: listViewMyMessagesRecord
+                                              .messagesRef!,
+                                        ),
                                       );
                                     },
-                                    child: InboxMessageItemWidget(
-                                      key: Key(
-                                          'Key4mc_${listViewIndex}_of_${listViewMyMessagesRecordList.length}'),
-                                      messageId:
-                                          listViewMyMessagesRecord.messagesRef!,
-                                    ),
                                   );
                                 },
-                              );
-                            },
-                          ),
-                        ].divide(SizedBox(height: 8.0)),
+                              ),
+                              if (columnCount <= 0)
+                                Text(
+                                  'Aucun message disponible',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.rubik(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                ),
+                            ].divide(SizedBox(height: 8.0)),
+                          );
+                        },
                       ),
                     ),
                   ),
