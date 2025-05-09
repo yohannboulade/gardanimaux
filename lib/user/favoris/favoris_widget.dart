@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/card_pet_sitter/card_pet_sitter_widget.dart';
+import '/components/certificate_widget.dart';
 import '/components/main_menu_widget.dart';
 import '/components/seash_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -130,130 +131,162 @@ class _FavorisWidgetState extends State<FavorisWidget> {
                                                           providerRef:
                                                               providerListItem,
                                                         ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .end,
-                                                          children: [
-                                                            if ((currentUserDocument
-                                                                        ?.favoriteProvider
-                                                                        ?.toList() ??
-                                                                    [])
-                                                                .contains(
-                                                                    providerListItem))
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(
-                                                                            10.0),
-                                                                child: InkWell(
-                                                                  splashColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  focusColor: Colors
-                                                                      .transparent,
-                                                                  hoverColor: Colors
-                                                                      .transparent,
-                                                                  highlightColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  onTap:
-                                                                      () async {
-                                                                    await currentUserReference!
-                                                                        .update({
-                                                                      ...mapToFirestore(
-                                                                        {
-                                                                          'favorite_provider':
-                                                                              FieldValue.arrayRemove([
-                                                                            providerListItem
-                                                                          ]),
-                                                                        },
-                                                                      ),
-                                                                    });
-
-                                                                    await providerListItem
-                                                                        .update({
-                                                                      ...mapToFirestore(
-                                                                        {
-                                                                          'my_followers':
-                                                                              FieldValue.arrayRemove([
-                                                                            currentUserReference
-                                                                          ]),
-                                                                        },
-                                                                      ),
-                                                                    });
-                                                                  },
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .favorite,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondary,
-                                                                    size: 30.0,
+                                                        StreamBuilder<
+                                                            ProviderRecord>(
+                                                          stream: ProviderRecord
+                                                              .getDocument(
+                                                                  providerListItem),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            // Customize what your widget looks like when it's loading.
+                                                            if (!snapshot
+                                                                .hasData) {
+                                                              return Center(
+                                                                child: SizedBox(
+                                                                  width: 50.0,
+                                                                  height: 50.0,
+                                                                  child:
+                                                                      CircularProgressIndicator(
+                                                                    valueColor:
+                                                                        AlwaysStoppedAnimation<
+                                                                            Color>(
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primary,
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            if (!(currentUserDocument
-                                                                        ?.favoriteProvider
-                                                                        ?.toList() ??
-                                                                    [])
-                                                                .contains(
-                                                                    providerListItem))
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(
-                                                                            10.0),
-                                                                child: InkWell(
-                                                                  splashColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  focusColor: Colors
-                                                                      .transparent,
-                                                                  hoverColor: Colors
-                                                                      .transparent,
-                                                                  highlightColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  onTap:
-                                                                      () async {
-                                                                    await currentUserReference!
-                                                                        .update({
-                                                                      ...mapToFirestore(
-                                                                        {
-                                                                          'favorite_provider':
-                                                                              FieldValue.arrayUnion([
-                                                                            providerListItem
-                                                                          ]),
-                                                                        },
-                                                                      ),
-                                                                    });
+                                                              );
+                                                            }
 
-                                                                    await providerListItem
-                                                                        .update({
-                                                                      ...mapToFirestore(
-                                                                        {
-                                                                          'my_followers':
-                                                                              FieldValue.arrayUnion([
-                                                                            currentUserReference
-                                                                          ]),
-                                                                        },
-                                                                      ),
-                                                                    });
-                                                                  },
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .favorite_border,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondary,
-                                                                    size: 30.0,
+                                                            final rowProviderRecord =
+                                                                snapshot.data!;
+
+                                                            return Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                if (rowProviderRecord
+                                                                    .certificate)
+                                                                  CertificateWidget(
+                                                                    key: Key(
+                                                                        'Keynty_${providerListIndex}_of_${providerList.length}'),
                                                                   ),
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .end,
+                                                                  children: [
+                                                                    if ((currentUserDocument?.favoriteProvider?.toList() ??
+                                                                            [])
+                                                                        .contains(
+                                                                            providerListItem))
+                                                                      Padding(
+                                                                        padding:
+                                                                            EdgeInsets.all(10.0),
+                                                                        child:
+                                                                            InkWell(
+                                                                          splashColor:
+                                                                              Colors.transparent,
+                                                                          focusColor:
+                                                                              Colors.transparent,
+                                                                          hoverColor:
+                                                                              Colors.transparent,
+                                                                          highlightColor:
+                                                                              Colors.transparent,
+                                                                          onTap:
+                                                                              () async {
+                                                                            await currentUserReference!.update({
+                                                                              ...mapToFirestore(
+                                                                                {
+                                                                                  'favorite_provider': FieldValue.arrayRemove([
+                                                                                    providerListItem
+                                                                                  ]),
+                                                                                },
+                                                                              ),
+                                                                            });
+
+                                                                            await providerListItem.update({
+                                                                              ...mapToFirestore(
+                                                                                {
+                                                                                  'my_followers': FieldValue.arrayRemove([
+                                                                                    currentUserReference
+                                                                                  ]),
+                                                                                },
+                                                                              ),
+                                                                            });
+                                                                          },
+                                                                          child:
+                                                                              Icon(
+                                                                            Icons.favorite,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).secondary,
+                                                                            size:
+                                                                                30.0,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    if (!(currentUserDocument?.favoriteProvider?.toList() ??
+                                                                            [])
+                                                                        .contains(
+                                                                            providerListItem))
+                                                                      Padding(
+                                                                        padding:
+                                                                            EdgeInsets.all(10.0),
+                                                                        child:
+                                                                            InkWell(
+                                                                          splashColor:
+                                                                              Colors.transparent,
+                                                                          focusColor:
+                                                                              Colors.transparent,
+                                                                          hoverColor:
+                                                                              Colors.transparent,
+                                                                          highlightColor:
+                                                                              Colors.transparent,
+                                                                          onTap:
+                                                                              () async {
+                                                                            await currentUserReference!.update({
+                                                                              ...mapToFirestore(
+                                                                                {
+                                                                                  'favorite_provider': FieldValue.arrayUnion([
+                                                                                    providerListItem
+                                                                                  ]),
+                                                                                },
+                                                                              ),
+                                                                            });
+
+                                                                            await providerListItem.update({
+                                                                              ...mapToFirestore(
+                                                                                {
+                                                                                  'my_followers': FieldValue.arrayUnion([
+                                                                                    currentUserReference
+                                                                                  ]),
+                                                                                },
+                                                                              ),
+                                                                            });
+                                                                          },
+                                                                          child:
+                                                                              Icon(
+                                                                            Icons.favorite_border,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).secondary,
+                                                                            size:
+                                                                                30.0,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                  ],
                                                                 ),
-                                                              ),
-                                                          ],
+                                                              ],
+                                                            );
+                                                          },
                                                         ),
                                                       ],
                                                     ),

@@ -1,5 +1,6 @@
 import '/backend/backend.dart';
 import '/components/card_pet_sitter/card_pet_sitter_widget.dart';
+import '/components/certificate_widget.dart';
 import '/components/main_menu_widget.dart';
 import '/components/seash_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -125,11 +126,41 @@ class _ExplorerWidgetState extends State<ExplorerWidget> {
                                             (wrapIndex) {
                                           final wrapProviderRecord =
                                               wrapProviderRecordList[wrapIndex];
-                                          return CardPetSitterWidget(
-                                            key: Key(
-                                                'Keyl28_${wrapIndex}_of_${wrapProviderRecordList.length}'),
-                                            providerRef:
-                                                wrapProviderRecord.reference,
+                                          return Container(
+                                            width: 300.0,
+                                            child: Stack(
+                                              children: [
+                                                CardPetSitterWidget(
+                                                  key: Key(
+                                                      'Keyl28_${wrapIndex}_of_${wrapProviderRecordList.length}'),
+                                                  providerRef:
+                                                      wrapProviderRecord
+                                                          .reference,
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    if (wrapProviderRecord
+                                                        .certificate)
+                                                      CertificateWidget(
+                                                        key: Key(
+                                                            'Key4iq_${wrapIndex}_of_${wrapProviderRecordList.length}'),
+                                                      ),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      children: [],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           );
                                         }),
                                       );

@@ -19,15 +19,7 @@ class SearchModel extends FlutterFlowModel<SearchWidget> {
   // State field(s) for PlacePicker widget.
   FFPlace placePickerValue = FFPlace();
   DateTime? datePicked1;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode1;
-  TextEditingController? textController1;
-  String? Function(BuildContext, String?)? textController1Validator;
   DateTime? datePicked2;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode2;
-  TextEditingController? textController2;
-  String? Function(BuildContext, String?)? textController2Validator;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
@@ -36,11 +28,5 @@ class SearchModel extends FlutterFlowModel<SearchWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    textFieldFocusNode1?.dispose();
-    textController1?.dispose();
-
-    textFieldFocusNode2?.dispose();
-    textController2?.dispose();
-  }
+  void dispose() {}
 }

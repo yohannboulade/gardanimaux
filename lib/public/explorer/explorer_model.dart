@@ -1,5 +1,6 @@
 import '/backend/backend.dart';
 import '/components/card_pet_sitter/card_pet_sitter_widget.dart';
+import '/components/certificate_widget.dart';
 import '/components/main_menu_widget.dart';
 import '/components/seash_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';

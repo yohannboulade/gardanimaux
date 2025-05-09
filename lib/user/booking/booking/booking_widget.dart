@@ -1774,7 +1774,15 @@ class _BookingWidgetState extends State<BookingWidget> {
                                     singleRecord: true,
                                   ).then((s) => s.firstOrNull);
                                   if (_model.messages != null) {
-                                    context.pushNamed(OrdersWidget.routeName);
+                                    context.pushNamed(
+                                      MessagesPageWidget.routeName,
+                                      queryParameters: {
+                                        'messagesId': serializeParam(
+                                          _model.messages?.reference,
+                                          ParamType.DocumentReference,
+                                        ),
+                                      }.withoutNulls,
+                                    );
                                   } else {
                                     var messagesRecordReference =
                                         MessagesRecord.collection.doc();

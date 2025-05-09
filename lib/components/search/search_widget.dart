@@ -35,12 +35,6 @@ class _SearchWidgetState extends State<SearchWidget> {
     super.initState();
     _model = createModel(context, () => SearchModel());
 
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
-
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -221,69 +215,19 @@ class _SearchWidgetState extends State<SearchWidget> {
                               size: 24.0,
                             ),
                             Expanded(
-                              child: TextFormField(
-                                controller: _model.textController1,
-                                focusNode: _model.textFieldFocusNode1,
-                                autofocus: false,
-                                readOnly: true,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: FFAppState().dateStart != null
-                                      ? dateTimeFormat(
-                                          "d/M/y",
-                                          FFAppState().dateStart,
-                                          locale: FFLocalizations.of(context)
-                                              .languageCode,
-                                        )
-                                      : 'A partir du ...',
-                                  hintText: 'A partir du',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyLarge
-                                      .override(
-                                        font: GoogleFonts.rubik(
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontStyle,
-                                        ),
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .fontStyle,
-                                      ),
-                                  enabledBorder: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  errorBorder: InputBorder.none,
-                                  focusedErrorBorder: InputBorder.none,
+                              child: Text(
+                                FFAppState().dateStart != null
+                                    ? 'A partir du ${dateTimeFormat(
+                                        "d/M/y",
+                                        FFAppState().dateStart,
+                                        locale: FFLocalizations.of(context)
+                                            .languageCode,
+                                      )}'
+                                    : 'A partir du ...',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyLarge
-                                    .override(
-                                      font: GoogleFonts.rubik(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .fontStyle,
-                                    ),
-                                validator: _model.textController1Validator
-                                    .asValidator(context),
                               ),
                             ),
                           ].divide(SizedBox(width: 12.0)),
@@ -377,69 +321,19 @@ class _SearchWidgetState extends State<SearchWidget> {
                               size: 24.0,
                             ),
                             Expanded(
-                              child: TextFormField(
-                                controller: _model.textController2,
-                                focusNode: _model.textFieldFocusNode2,
-                                autofocus: false,
-                                readOnly: true,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: FFAppState().dateEnd != null
-                                      ? dateTimeFormat(
-                                          "d/M/y",
-                                          FFAppState().dateEnd,
-                                          locale: FFLocalizations.of(context)
-                                              .languageCode,
-                                        )
-                                      : 'Jusqu\'au',
-                                  hintText: 'Jusqu\'au',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyLarge
-                                      .override(
-                                        font: GoogleFonts.rubik(
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontStyle,
-                                        ),
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .fontStyle,
-                                      ),
-                                  enabledBorder: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  errorBorder: InputBorder.none,
-                                  focusedErrorBorder: InputBorder.none,
+                              child: Text(
+                                FFAppState().dateEnd != null
+                                    ? 'Jusqu\'au ${dateTimeFormat(
+                                        "d/M/y",
+                                        FFAppState().dateEnd,
+                                        locale: FFLocalizations.of(context)
+                                            .languageCode,
+                                      )}'
+                                    : 'Jusqu\'au ...',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyLarge
-                                    .override(
-                                      font: GoogleFonts.rubik(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .fontStyle,
-                                    ),
-                                validator: _model.textController2Validator
-                                    .asValidator(context),
                               ),
                             ),
                           ].divide(SizedBox(width: 12.0)),
