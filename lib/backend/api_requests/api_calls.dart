@@ -787,7 +787,7 @@ class AssistanceCall {
       },
       "To": [
         {
-          "Email": "yohann.boulade@gmail.copm",
+          "Email": "yohann.boulade@gmail.com",
           "Name": "Yohann"
         }
       ],
