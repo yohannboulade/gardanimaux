@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "396878417284",
+    "project_id": "gardanimaux-64f96",
+    "storage_bucket": "gardanimaux-64f96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396878417284:android:0b7b18be2c2781a8e9e1d1",
+        "android_client_info": {
+          "package_name": "com.gardanimaux.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396878417284-m9e5mrjqhl8e2otornbb9oacp81jo5n8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gardanimaux.app",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "396878417284-bq9stit2rtuf886geg8fr01gj20ine02.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwddP8tRnovMjfDJKNZ_3c4NMlaH3mGRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396878417284-bq9stit2rtuf886geg8fr01gj20ine02.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396878417284-7ria468ikgo0d50s8hut0sgokapjahs8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.crmapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396878417284:android:afdab124d88f5621e9e1d1",
+        "android_client_info": {
+          "package_name": "com.mycompany.crmapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396878417284-bq9stit2rtuf886geg8fr01gj20ine02.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwddP8tRnovMjfDJKNZ_3c4NMlaH3mGRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396878417284-bq9stit2rtuf886geg8fr01gj20ine02.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396878417284-7ria468ikgo0d50s8hut0sgokapjahs8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.crmapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
