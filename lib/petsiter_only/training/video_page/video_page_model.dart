@@ -1,12 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/main_menu_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/petsiter_only/training/add_video/add_video_widget.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
@@ -27,16 +25,24 @@ class VideoPageModel extends FlutterFlowModel<VideoPageWidget> {
 
   // Model for main_menu component.
   late MainMenuModel mainMenuModel;
+  // State field(s) for Columnmain widget.
+  ScrollController? columnmain;
+  // State field(s) for ListView widget.
+  ScrollController? listViewController;
   // Stores action output result for [Custom Action - verifCertificate] action in Button widget.
   bool? verif;
 
   @override
   void initState(BuildContext context) {
     mainMenuModel = createModel(context, () => MainMenuModel());
+    columnmain = ScrollController();
+    listViewController = ScrollController();
   }
 
   @override
   void dispose() {
     mainMenuModel.dispose();
+    columnmain?.dispose();
+    listViewController?.dispose();
   }
 }

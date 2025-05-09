@@ -208,6 +208,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: VideoPageWidget.routeName,
           path: VideoPageWidget.routePath,
           builder: (context, params) => VideoPageWidget(),
+        ),
+        FFRoute(
+          name: AssistantWidget.routeName,
+          path: AssistantWidget.routePath,
+          builder: (context, params) => AssistantWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

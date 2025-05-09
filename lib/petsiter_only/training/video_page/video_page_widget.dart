@@ -1,12 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/main_menu_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/petsiter_only/training/add_video/add_video_widget.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
@@ -95,41 +93,7 @@ class _VideoPageWidgetState extends State<VideoPageWidget> {
               ),
             ],
           ),
-          actions: [
-            FlutterFlowIconButton(
-              borderRadius: 8.0,
-              buttonSize: 40.0,
-              fillColor: FlutterFlowTheme.of(context).primary,
-              icon: Icon(
-                Icons.add,
-                color: FlutterFlowTheme.of(context).info,
-                size: 24.0,
-              ),
-              onPressed: () async {
-                await showModalBottomSheet(
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  enableDrag: false,
-                  context: context,
-                  builder: (context) {
-                    return GestureDetector(
-                      onTap: () {
-                        FocusScope.of(context).unfocus();
-                        FocusManager.instance.primaryFocus?.unfocus();
-                      },
-                      child: Padding(
-                        padding: MediaQuery.viewInsetsOf(context),
-                        child: Container(
-                          height: MediaQuery.sizeOf(context).height * 0.8,
-                          child: AddVideoWidget(),
-                        ),
-                      ),
-                    );
-                  },
-                ).then((value) => safeSetState(() {}));
-              },
-            ),
-          ],
+          actions: [],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -153,9 +117,10 @@ class _VideoPageWidgetState extends State<VideoPageWidget> {
                 );
               }
 
-              final columnProviderRecord = snapshot.data!;
+              final columnmainProviderRecord = snapshot.data!;
 
               return SingleChildScrollView(
+                controller: _model.columnmain,
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -544,6 +509,13 @@ class _VideoPageWidgetState extends State<VideoPageWidget> {
                                                       listViewVideoTrainingRecord
                                                           .reference;
                                                   safeSetState(() {});
+                                                  await _model.columnmain
+                                                      ?.animateTo(
+                                                    0,
+                                                    duration: Duration(
+                                                        milliseconds: 100),
+                                                    curve: Curves.ease,
+                                                  );
                                                 },
                                                 child: Container(
                                                   width: double.infinity,
@@ -915,6 +887,7 @@ class _VideoPageWidgetState extends State<VideoPageWidget> {
                                               ),
                                             );
                                           },
+                                          controller: _model.listViewController,
                                         );
                                       },
                                     ),

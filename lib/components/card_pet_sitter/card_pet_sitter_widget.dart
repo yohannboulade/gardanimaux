@@ -79,7 +79,7 @@ class _CardPetSitterWidgetState extends State<CardPetSitterWidget> {
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: Container(
-              width: 400.0,
+              width: 350.0,
               constraints: BoxConstraints(
                 maxWidth: MediaQuery.sizeOf(context).width * 0.95,
               ),

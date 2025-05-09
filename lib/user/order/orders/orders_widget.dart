@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/main_menu_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -81,30 +82,32 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                 context.pop();
               },
             ),
-            title: Row(
+            title: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Text(
                   'Commandes',
-                  style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                         font: GoogleFonts.rubik(
                           fontWeight: FlutterFlowTheme.of(context)
-                              .headlineMedium
+                              .bodyMedium
                               .fontWeight,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .headlineMedium
-                              .fontStyle,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
-                        color: Colors.white,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                         fontSize: 22.0,
                         letterSpacing: 0.0,
-                        fontWeight: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .fontWeight,
-                        fontStyle: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .fontStyle,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
+                ),
+                wrapWithModel(
+                  model: _model.mainMenuModel,
+                  updateCallback: () => safeSetState(() {}),
+                  child: MainMenuWidget(),
                 ),
               ],
             ),

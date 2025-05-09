@@ -25,3 +25,4 @@ export '/user/messages/messages_page/messages_page_widget.dart'
     show MessagesPageWidget;
 export '/petsiter_only/training/video_page/video_page_widget.dart'
     show VideoPageWidget;
+export '/assistant/assistant_widget.dart' show AssistantWidget;

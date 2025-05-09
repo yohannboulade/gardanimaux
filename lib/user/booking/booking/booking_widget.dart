@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/stripe/payment_manager.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
@@ -1569,6 +1570,28 @@ class _BookingWidgetState extends State<BookingWidget> {
                               },
                             ),
                           ),
+                        Text(
+                          'Pour la version de test, au passage de la commande, utilisez la catre test 4242 4242 4242 4242 expiration 12/30  crypo 123',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    font: GoogleFonts.rubik(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context).error,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                        ),
                         if (_model.serviceId != null)
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
@@ -1578,6 +1601,16 @@ class _BookingWidgetState extends State<BookingWidget> {
                                 _model.service =
                                     await ServicesRecord.getDocumentOnce(
                                         _model.serviceId!);
+                                _model.userIdProvider =
+                                    await queryUsersRecordOnce(
+                                  queryBuilder: (usersRecord) =>
+                                      usersRecord.where(
+                                    'is_provider',
+                                    isEqualTo:
+                                        containerProviderRecord.reference,
+                                  ),
+                                  singleRecord: true,
+                                ).then((s) => s.firstOrNull);
                                 if (_model.service?.serviceName == 'Séjour') {
                                   FFAppState().calculJour = functions
                                       .calculNbJou(
@@ -1683,6 +1716,47 @@ class _BookingWidgetState extends State<BookingWidget> {
                                       },
                                     ),
                                   });
+                                  await Future.wait([
+                                    Future(() async {
+                                      await NotificationMailjetGroup
+                                          .newOrderProviderCall
+                                          .call(
+                                        customerName: currentUserDisplayName,
+                                        providerEmail:
+                                            _model.userIdProvider?.email,
+                                        provaiderName:
+                                            containerProviderRecord.pageTitle,
+                                        dateDebut: _model.newOrder?.dateStart
+                                            ?.toString(),
+                                        dateFin: _model.newOrder?.dateEnd
+                                            ?.toString(),
+                                        typeAnimal: _model.newOrder?.pet,
+                                        typePrestation:
+                                            _model.newOrder?.service,
+                                        totalPrice: _model.newOrder?.totalPrice
+                                            ?.toString(),
+                                      );
+                                    }),
+                                    Future(() async {
+                                      await NotificationMailjetGroup
+                                          .newOrderCustomerCall
+                                          .call(
+                                        customerName: currentUserDisplayName,
+                                        customerEmail: currentUserEmail,
+                                        provaiderName:
+                                            containerProviderRecord.pageTitle,
+                                        dateDebut: _model.newOrder?.dateStart
+                                            ?.toString(),
+                                        dateFin: _model.newOrder?.dateEnd
+                                            ?.toString(),
+                                        typeAnimal: _model.newOrder?.pet,
+                                        typePrestation:
+                                            _model.newOrder?.service,
+                                        totalPrice: _model.newOrder?.totalPrice
+                                            ?.toString(),
+                                      );
+                                    }),
+                                  ]);
                                   _model.messages =
                                       await queryMessagesRecordOnce(
                                     queryBuilder: (messagesRecord) =>
@@ -1702,17 +1776,6 @@ class _BookingWidgetState extends State<BookingWidget> {
                                   if (_model.messages != null) {
                                     context.pushNamed(OrdersWidget.routeName);
                                   } else {
-                                    _model.userIdProvider =
-                                        await queryUsersRecordOnce(
-                                      queryBuilder: (usersRecord) =>
-                                          usersRecord.where(
-                                        'is_provider',
-                                        isEqualTo:
-                                            containerProviderRecord.reference,
-                                      ),
-                                      singleRecord: true,
-                                    ).then((s) => s.firstOrNull);
-
                                     var messagesRecordReference =
                                         MessagesRecord.collection.doc();
                                     await messagesRecordReference.set({

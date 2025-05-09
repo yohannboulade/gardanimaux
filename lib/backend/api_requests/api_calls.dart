@@ -541,6 +541,7 @@ class NotificationMailjetGroup {
   static NewOrderCustomerCall newOrderCustomerCall = NewOrderCustomerCall();
   static CancelOrderCustomerCall cancelOrderCustomerCall =
       CancelOrderCustomerCall();
+  static AssistanceCall assistanceCall = AssistanceCall();
 }
 
 class NewOrderProviderCall {
@@ -747,6 +748,58 @@ class CancelOrderCustomerCall {
 ''';
     return ApiManager.instance.makeApiCall(
       callName: 'cancel order customer',
+      apiUrl: '${baseUrl}/send',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization':
+            'Basic YjM4YmRkODQ1ZGNlN2M5MDM1MjQ0ODc1MDU2YTMyNTM6MzY4OWU4OTQwOWJjOTk4NWFkZjdlZTFhYTFhNmM0NGY=',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class AssistanceCall {
+  Future<ApiCallResponse> call({
+    String? customerName = '',
+    String? customerEmail = '',
+    String? phoneNumber = '',
+    String? message = '',
+  }) async {
+    final baseUrl = NotificationMailjetGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "Messages": [
+    {
+      "From": {
+        "Email": "contact@gardanimaux.fr",
+        "Name": "Jordi Gardanimaux"
+      },
+      "To": [
+        {
+          "Email": "yohann.boulade@gmail.copm",
+          "Name": "Yohann"
+        }
+      ],
+      "Subject": "Assistance requise pour le sous-domaine beta.gardanimaux.fr",
+      "TextPart": "Bonjour,\\n\\nUn client a besoin d’assistance concernant le sous-domaine beta.gardanimaux.fr. Voici les informations qu’il a partagées :\\n\\n- Email du client : ${escapeStringForJson(customerEmail)}\\n- Nom du client : ${escapeStringForJson(customerName)}\\n- Numéro de téléphone : ${escapeStringForJson(phoneNumber)}\\n- Message : ${escapeStringForJson(message)}\\n\\nMerci de bien vouloir traiter cette demande au plus vite.\\n\\nCordialement,\\nL’équipe GardAnimaux",
+      "HTMLPart": "<html><body style=\\"font-family: Arial, sans-serif; color: #333;\\"><h2>Assistance requise pour le sous-domaine beta.gardanimaux.fr</h2><p><strong>Un client a besoin d’assistance concernant le sous-domaine beta.gardanimaux.fr.</strong></p><p><strong>Détails de la demande :</strong></p><ul><li><strong>Email du client :</strong> ${escapeStringForJson(customerEmail)}</li><li><strong>Nom du client :</strong> ${escapeStringForJson(customerName)}</li><li><strong>Numéro de téléphone :</strong> ${escapeStringForJson(phoneNumber)}</li><li><strong>Message :</strong> ${escapeStringForJson(message)}</li></ul><p>Merci de bien vouloir traiter cette demande au plus vite.</p><p style=\\"margin-top: 20px;\\">— L’équipe <strong>GardAnimaux</strong></p></body></html>"
+    }
+  ]
+}
+''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'assistance',
       apiUrl: '${baseUrl}/send',
       callType: ApiCallType.POST,
       headers: {

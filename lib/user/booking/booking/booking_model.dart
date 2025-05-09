@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/stripe/payment_manager.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
@@ -44,14 +45,14 @@ class BookingModel extends FlutterFlowModel<BookingWidget> {
   FormFieldController<double>? dropDownValueController;
   // Stores action output result for [Backend Call - Read Document] action in Button widget.
   ServicesRecord? service;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  UsersRecord? userIdProvider;
   // Stores action output result for [Stripe Payment] action in Button widget.
   String? paymentId;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   OrdersRecord? newOrder;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   MessagesRecord? messages;
-  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  UsersRecord? userIdProvider;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   MessagesRecord? newMessages;
 

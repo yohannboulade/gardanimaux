@@ -1889,6 +1889,8 @@ file:///Users/yohann/Development/gardanimaux/.dart_tool/flutter_build/ff5bfaed53
 file:///Users/yohann/Development/gardanimaux/.dart_tool/package_config.json
 file:///Users/yohann/Development/gardanimaux/lib/app_constants.dart
 file:///Users/yohann/Development/gardanimaux/lib/app_state.dart
+file:///Users/yohann/Development/gardanimaux/lib/assistant/assistant_model.dart
+file:///Users/yohann/Development/gardanimaux/lib/assistant/assistant_widget.dart
 file:///Users/yohann/Development/gardanimaux/lib/auth/auth_manager.dart
 file:///Users/yohann/Development/gardanimaux/lib/auth/base_auth_user_provider.dart
 file:///Users/yohann/Development/gardanimaux/lib/auth/firebase_auth/anonymous_auth.dart
@@ -1994,8 +1996,6 @@ file:///Users/yohann/Development/gardanimaux/lib/petsiter_only/petsitter_data/pe
 file:///Users/yohann/Development/gardanimaux/lib/petsiter_only/petsitter_data/petsitter_data_widget.dart
 file:///Users/yohann/Development/gardanimaux/lib/petsiter_only/petsitter_update/petsitter_update_model.dart
 file:///Users/yohann/Development/gardanimaux/lib/petsiter_only/petsitter_update/petsitter_update_widget.dart
-file:///Users/yohann/Development/gardanimaux/lib/petsiter_only/training/add_video/add_video_model.dart
-file:///Users/yohann/Development/gardanimaux/lib/petsiter_only/training/add_video/add_video_widget.dart
 file:///Users/yohann/Development/gardanimaux/lib/petsiter_only/training/video_page/video_page_model.dart
 file:///Users/yohann/Development/gardanimaux/lib/petsiter_only/training/video_page/video_page_widget.dart
 file:///Users/yohann/Development/gardanimaux/lib/provider_page/provider_page_model.dart

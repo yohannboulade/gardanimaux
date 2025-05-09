@@ -506,17 +506,27 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               ),
                                             ),
                                           ),
-                                          wrapWithModel(
-                                            model: _model
-                                                .profileSettingItemsModel2,
-                                            updateCallback: () =>
-                                                safeSetState(() {}),
-                                            child: ProfileSettingItemsWidget(
-                                              icon: Icon(
-                                                Icons.history_sharp,
+                                          InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              context.pushNamed(
+                                                  OrdersWidget.routeName);
+                                            },
+                                            child: wrapWithModel(
+                                              model: _model
+                                                  .profileSettingItemsModel2,
+                                              updateCallback: () =>
+                                                  safeSetState(() {}),
+                                              child: ProfileSettingItemsWidget(
+                                                icon: Icon(
+                                                  Icons.history_sharp,
+                                                ),
+                                                title: 'Mes missions',
+                                                activeDivider: false,
                                               ),
-                                              title: 'Mes missions',
-                                              activeDivider: false,
                                             ),
                                           ),
                                         ].divide(SizedBox(height: 8.0)),
@@ -763,19 +773,30 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               activeDivider: false,
                                             ),
                                           ),
-                                          wrapWithModel(
-                                            model: _model
-                                                .profileSettingDetailItemsModel,
-                                            updateCallback: () =>
-                                                safeSetState(() {}),
-                                            child:
-                                                ProfileSettingDetailItemsWidget(
-                                              icon: Icon(
-                                                Icons.support_agent_rounded,
+                                          InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              context.pushNamed(
+                                                  AssistantWidget.routeName);
+                                            },
+                                            child: wrapWithModel(
+                                              model: _model
+                                                  .profileSettingDetailItemsModel,
+                                              updateCallback: () =>
+                                                  safeSetState(() {}),
+                                              child:
+                                                  ProfileSettingDetailItemsWidget(
+                                                icon: Icon(
+                                                  Icons.support_agent_rounded,
+                                                ),
+                                                title:
+                                                    'Contacter l\'assistance ',
+                                                detail:
+                                                    'Signalez à notre équipe tout comportement suspect ou litige dans vos missions',
                                               ),
-                                              title: 'Contacter l\'assistance ',
-                                              detail:
-                                                  'Signalez à notre équipe tout comportement suspect ou litige dans vos missions',
                                             ),
                                           ),
                                           wrapWithModel(
