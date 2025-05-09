@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/main_menu_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -24,12 +25,18 @@ class VideoPageModel extends FlutterFlowModel<VideoPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
+  // Model for main_menu component.
+  late MainMenuModel mainMenuModel;
   // Stores action output result for [Custom Action - verifCertificate] action in Button widget.
   bool? verif;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    mainMenuModel = createModel(context, () => MainMenuModel());
+  }
 
   @override
-  void dispose() {}
+  void dispose() {
+    mainMenuModel.dispose();
+  }
 }

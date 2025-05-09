@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/main_menu_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -14,9 +15,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class InboxModel extends FlutterFlowModel<InboxWidget> {
-  @override
-  void initState(BuildContext context) {}
+  ///  State fields for stateful widgets in this page.
+
+  // Model for main_menu component.
+  late MainMenuModel mainMenuModel;
 
   @override
-  void dispose() {}
+  void initState(BuildContext context) {
+    mainMenuModel = createModel(context, () => MainMenuModel());
+  }
+
+  @override
+  void dispose() {
+    mainMenuModel.dispose();
+  }
 }

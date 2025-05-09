@@ -166,67 +166,74 @@ class _NavBarPageState extends State<NavBarPage> {
       'explorer': ExplorerWidget(),
       'favoris': FavorisWidget(),
       'inbox': InboxWidget(),
-      'profile': ProfileWidget(),
       'orders': OrdersWidget(),
+      'profile': ProfileWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
     return Scaffold(
       body: _currentPage ?? tabs[_currentPageName],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (i) => safeSetState(() {
-          _currentPage = null;
-          _currentPageName = tabs.keys.toList()[i];
-        }),
-        backgroundColor: FlutterFlowTheme.of(context).tertiary,
-        selectedItemColor: FlutterFlowTheme.of(context).primary,
-        unselectedItemColor: FlutterFlowTheme.of(context).primaryBackground,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search_sharp,
-              size: 20.0,
+      bottomNavigationBar: Visibility(
+        visible: responsiveVisibility(
+          context: context,
+          tabletLandscape: false,
+          desktop: false,
+        ),
+        child: BottomNavigationBar(
+          currentIndex: currentIndex,
+          onTap: (i) => safeSetState(() {
+            _currentPage = null;
+            _currentPageName = tabs.keys.toList()[i];
+          }),
+          backgroundColor: FlutterFlowTheme.of(context).tertiary,
+          selectedItemColor: FlutterFlowTheme.of(context).primary,
+          unselectedItemColor: FlutterFlowTheme.of(context).primaryBackground,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          type: BottomNavigationBarType.fixed,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.search_sharp,
+                size: 20.0,
+              ),
+              label: 'Explore',
+              tooltip: '',
             ),
-            label: 'Explore',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.favorite_border_sharp,
-              size: 20.0,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.favorite_border_sharp,
+                size: 20.0,
+              ),
+              label: 'Favoris',
+              tooltip: '',
             ),
-            label: 'Favoris',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.mail_outline,
-              size: 20.0,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.mail_outline,
+                size: 20.0,
+              ),
+              label: 'Messages',
+              tooltip: '',
             ),
-            label: 'Messages',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_outline,
-              size: 24.0,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.shopping_cart,
+                size: 20.0,
+              ),
+              label: 'Messages',
+              tooltip: '',
             ),
-            label: 'Profil',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.shopping_cart,
-              size: 20.0,
-            ),
-            label: 'Messages',
-            tooltip: '',
-          )
-        ],
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person_outline,
+                size: 24.0,
+              ),
+              label: 'Profil',
+              tooltip: '',
+            )
+          ],
+        ),
       ),
     );
   }

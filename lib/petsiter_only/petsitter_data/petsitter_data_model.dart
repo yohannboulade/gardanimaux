@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
+import '/components/main_menu_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -21,10 +22,16 @@ class PetsitterDataModel extends FlutterFlowModel<PetsitterDataWidget> {
 
   // Stores action output result for [Backend Call - API (created link acount)] action in Button widget.
   ApiCallResponse? link;
+  // Model for main_menu component.
+  late MainMenuModel mainMenuModel;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    mainMenuModel = createModel(context, () => MainMenuModel());
+  }
 
   @override
-  void dispose() {}
+  void dispose() {
+    mainMenuModel.dispose();
+  }
 }

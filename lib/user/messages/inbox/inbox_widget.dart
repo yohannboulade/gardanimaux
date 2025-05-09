@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/main_menu_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -80,24 +81,38 @@ class _InboxWidgetState extends State<InboxWidget> {
                 context.pop();
               },
             ),
-            title: Text(
-              'Messagerie',
-              style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    font: GoogleFonts.rubik(
-                      fontWeight: FlutterFlowTheme.of(context)
-                          .headlineMedium
-                          .fontWeight,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                    ),
-                    color: Colors.white,
-                    fontSize: 22.0,
-                    letterSpacing: 0.0,
-                    fontWeight:
-                        FlutterFlowTheme.of(context).headlineMedium.fontWeight,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                  ),
+            title: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  'Messagerie',
+                  textAlign: TextAlign.center,
+                  style: FlutterFlowTheme.of(context).headlineMedium.override(
+                        font: GoogleFonts.rubik(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontStyle,
+                        ),
+                        color: Colors.white,
+                        fontSize: 22.0,
+                        letterSpacing: 0.0,
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontStyle,
+                      ),
+                ),
+                wrapWithModel(
+                  model: _model.mainMenuModel,
+                  updateCallback: () => safeSetState(() {}),
+                  child: MainMenuWidget(),
+                ),
+              ],
             ),
             actions: [],
             centerTitle: false,

@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/main_menu_widget.dart';
 import '/components/profile_setting_detail_items/profile_setting_detail_items_widget.dart';
 import '/components/profile_setting_items/profile_setting_items_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -42,6 +43,8 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   late ProfileSettingItemsModel profileSettingItemsModel9;
   // Model for ProfileSettingItems component.
   late ProfileSettingItemsModel profileSettingItemsModel10;
+  // Model for main_menu component.
+  late MainMenuModel mainMenuModel;
 
   @override
   void initState(BuildContext context) {
@@ -67,6 +70,7 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
         createModel(context, () => ProfileSettingItemsModel());
     profileSettingItemsModel10 =
         createModel(context, () => ProfileSettingItemsModel());
+    mainMenuModel = createModel(context, () => MainMenuModel());
   }
 
   @override
@@ -82,5 +86,6 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
     profileSettingItemsModel8.dispose();
     profileSettingItemsModel9.dispose();
     profileSettingItemsModel10.dispose();
+    mainMenuModel.dispose();
   }
 }

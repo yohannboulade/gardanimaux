@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/main_menu_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -68,20 +69,31 @@ class _VideoPageWidgetState extends State<VideoPageWidget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: true,
-          title: Text(
-            'Formation',
-            style: FlutterFlowTheme.of(context).headlineSmall.override(
-                  font: GoogleFonts.rubik(
-                    fontWeight: FontWeight.bold,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).headlineSmall.fontStyle,
-                  ),
-                  color: FlutterFlowTheme.of(context).info,
-                  letterSpacing: 0.0,
-                  fontWeight: FontWeight.bold,
-                  fontStyle:
-                      FlutterFlowTheme.of(context).headlineSmall.fontStyle,
-                ),
+          title: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                'Formation',
+                style: FlutterFlowTheme.of(context).headlineSmall.override(
+                      font: GoogleFonts.rubik(
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineSmall
+                            .fontStyle,
+                      ),
+                      color: FlutterFlowTheme.of(context).info,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.bold,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).headlineSmall.fontStyle,
+                    ),
+              ),
+              wrapWithModel(
+                model: _model.mainMenuModel,
+                updateCallback: () => safeSetState(() {}),
+                child: MainMenuWidget(),
+              ),
+            ],
           ),
           actions: [
             FlutterFlowIconButton(
@@ -177,7 +189,7 @@ class _VideoPageWidgetState extends State<VideoPageWidget> {
                             ),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
                                   containerVideoTrainingRecord.title,
@@ -206,7 +218,7 @@ class _VideoPageWidgetState extends State<VideoPageWidget> {
                                 FlutterFlowVideoPlayer(
                                   path: '${containerVideoTrainingRecord.url}',
                                   videoType: VideoType.network,
-                                  width: double.infinity,
+                                  width: MediaQuery.sizeOf(context).width * 0.9,
                                   autoPlay: false,
                                   looping: true,
                                   showControls: true,

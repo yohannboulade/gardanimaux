@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/components/card_service/card_service_widget.dart';
+import '/components/main_menu_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -66,9 +67,13 @@ class PetsitterUpdateModel extends FlutterFlowModel<PetsitterUpdateWidget> {
   String? Function(BuildContext, String?)? textController5Validator;
   // State field(s) for PlacePicker widget.
   FFPlace placePickerValue = FFPlace();
+  // Model for main_menu component.
+  late MainMenuModel mainMenuModel;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    mainMenuModel = createModel(context, () => MainMenuModel());
+  }
 
   @override
   void dispose() {
@@ -86,5 +91,7 @@ class PetsitterUpdateModel extends FlutterFlowModel<PetsitterUpdateWidget> {
 
     textFieldFocusNode5?.dispose();
     textController5?.dispose();
+
+    mainMenuModel.dispose();
   }
 }

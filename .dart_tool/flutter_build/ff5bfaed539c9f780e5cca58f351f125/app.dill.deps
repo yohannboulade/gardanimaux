@@ -1942,6 +1942,8 @@ file:///Users/yohann/Development/gardanimaux/lib/components/lieu/lieu_model.dart
 file:///Users/yohann/Development/gardanimaux/lib/components/lieu/lieu_widget.dart
 file:///Users/yohann/Development/gardanimaux/lib/components/litige_model.dart
 file:///Users/yohann/Development/gardanimaux/lib/components/litige_widget.dart
+file:///Users/yohann/Development/gardanimaux/lib/components/main_menu_model.dart
+file:///Users/yohann/Development/gardanimaux/lib/components/main_menu_widget.dart
 file:///Users/yohann/Development/gardanimaux/lib/components/menu_service/menu_service_model.dart
 file:///Users/yohann/Development/gardanimaux/lib/components/menu_service/menu_service_widget.dart
 file:///Users/yohann/Development/gardanimaux/lib/components/profile_setting_detail_items/profile_setting_detail_items_model.dart
@@ -1950,6 +1952,8 @@ file:///Users/yohann/Development/gardanimaux/lib/components/profile_setting_item
 file:///Users/yohann/Development/gardanimaux/lib/components/profile_setting_items/profile_setting_items_widget.dart
 file:///Users/yohann/Development/gardanimaux/lib/components/search/search_model.dart
 file:///Users/yohann/Development/gardanimaux/lib/components/search/search_widget.dart
+file:///Users/yohann/Development/gardanimaux/lib/components/seash_model.dart
+file:///Users/yohann/Development/gardanimaux/lib/components/seash_widget.dart
 file:///Users/yohann/Development/gardanimaux/lib/components/separateur/separateur_model.dart
 file:///Users/yohann/Development/gardanimaux/lib/components/separateur/separateur_widget.dart
 file:///Users/yohann/Development/gardanimaux/lib/custom_code/actions/calcul_moyenne.dart

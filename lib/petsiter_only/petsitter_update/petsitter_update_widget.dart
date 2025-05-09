@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/components/card_service/card_service_widget.dart';
+import '/components/main_menu_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -119,23 +120,36 @@ class _PetsitterUpdateWidgetState extends State<PetsitterUpdateWidget> {
               context.pushNamed(ExplorerWidget.routeName);
             },
           ),
-          title: Text(
-            'Gérer ma page',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  font: GoogleFonts.rubik(
-                    fontWeight:
-                        FlutterFlowTheme.of(context).headlineMedium.fontWeight,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                  ),
-                  color: Colors.white,
-                  fontSize: 22.0,
-                  letterSpacing: 0.0,
-                  fontWeight:
-                      FlutterFlowTheme.of(context).headlineMedium.fontWeight,
-                  fontStyle:
-                      FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                ),
+          title: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                'Gérer ma page',
+                style: FlutterFlowTheme.of(context).headlineMedium.override(
+                      font: GoogleFonts.rubik(
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontStyle,
+                      ),
+                      color: Colors.white,
+                      fontSize: 22.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FlutterFlowTheme.of(context)
+                          .headlineMedium
+                          .fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                    ),
+              ),
+              wrapWithModel(
+                model: _model.mainMenuModel,
+                updateCallback: () => safeSetState(() {}),
+                child: MainMenuWidget(),
+              ),
+            ],
           ),
           actions: [],
           centerTitle: true,

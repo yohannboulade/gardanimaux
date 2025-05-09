@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/main_menu_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -30,9 +31,13 @@ class PersonalDataModel extends FlutterFlowModel<PersonalDataWidget> {
   String? Function(BuildContext, String?)? textController2Validator;
   // State field(s) for PlacePicker widget.
   FFPlace placePickerValue = FFPlace();
+  // Model for main_menu component.
+  late MainMenuModel mainMenuModel;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    mainMenuModel = createModel(context, () => MainMenuModel());
+  }
 
   @override
   void dispose() {
@@ -41,5 +46,7 @@ class PersonalDataModel extends FlutterFlowModel<PersonalDataWidget> {
 
     textFieldFocusNode2?.dispose();
     textController2?.dispose();
+
+    mainMenuModel.dispose();
   }
 }
