@@ -1,0 +1,8 @@
+[
+    {
+      "origin": ["https://beta.gardanimaux.fr"],
+      "method": ["GET"],
+      "maxAgeSeconds": 3600
+    }
+  ]
+  
