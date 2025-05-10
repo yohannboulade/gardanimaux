@@ -225,7 +225,7 @@ class _InboxWidgetState extends State<InboxWidget> {
                                   );
                                 },
                               ),
-                              if (columnCount <= 0)
+                              if ((columnCount == null) || (columnCount <= 0))
                                 Text(
                                   'Aucun message disponible',
                                   style: FlutterFlowTheme.of(context)

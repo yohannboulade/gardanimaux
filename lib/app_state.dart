@@ -114,4 +114,10 @@ class FFAppState extends ChangeNotifier {
   set calculJour(double value) {
     _calculJour = value;
   }
+
+  String _ptohoUrlTemp = '';
+  String get ptohoUrlTemp => _ptohoUrlTemp;
+  set ptohoUrlTemp(String value) {
+    _ptohoUrlTemp = value;
+  }
 }

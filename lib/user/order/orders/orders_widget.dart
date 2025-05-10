@@ -141,13 +141,26 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Text(
-                                    'Commandes client',
-                                    maxLines: 1,
-                                    style: FlutterFlowTheme.of(context)
-                                        .displayMedium
-                                        .override(
-                                          font: GoogleFonts.rubik(
+                                  AuthUserStreamWidget(
+                                    builder: (context) => Text(
+                                      currentUserDocument?.isProvider == null
+                                          ? 'Mes commandes'
+                                          : 'Commandes client',
+                                      maxLines: 1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .displayMedium
+                                          .override(
+                                            font: GoogleFonts.rubik(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .displayMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .displayMedium
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .displayMedium
@@ -157,16 +170,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                                     .displayMedium
                                                     .fontStyle,
                                           ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .displayMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .displayMedium
-                                                  .fontStyle,
-                                        ),
+                                    ),
                                   ),
                                   AuthUserStreamWidget(
                                     builder: (context) => Builder(

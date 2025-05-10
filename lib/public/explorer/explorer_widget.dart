@@ -71,6 +71,7 @@ class _ExplorerWidgetState extends State<ExplorerWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Container(
+                            width: double.infinity,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,

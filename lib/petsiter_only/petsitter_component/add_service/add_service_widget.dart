@@ -380,38 +380,60 @@ class _AddServiceWidgetState extends State<AddServiceWidget> {
             ),
             FFButtonWidget(
               onPressed: () async {
-                _model.provider = await ProviderRecord.getDocumentOnce(
-                    currentUserDocument!.isProvider!);
+                if ((_model.dropDownValue1 != null &&
+                        _model.dropDownValue1 != '') &&
+                    (_model.dropDownValue2 != null &&
+                        _model.dropDownValue2 != '') &&
+                    (_model.textController.text != null &&
+                        _model.textController.text != '') &&
+                    (_model.dropDownValue3 == '')) {
+                  _model.provider = await ProviderRecord.getDocumentOnce(
+                      currentUserDocument!.isProvider!);
 
-                var servicesRecordReference = ServicesRecord.collection.doc();
-                await servicesRecordReference.set(createServicesRecordData(
-                  createdTime: getCurrentTimestamp,
-                  serviceName: _model.dropDownValue1,
-                  ordrer: _model.provider?.myServices?.length,
-                  petAccepted: _model.dropDownValue2,
-                  price: double.tryParse(_model.textController.text),
-                  unit: _model.dropDownValue3,
-                ));
-                _model.newService = ServicesRecord.getDocumentFromData(
-                    createServicesRecordData(
-                      createdTime: getCurrentTimestamp,
-                      serviceName: _model.dropDownValue1,
-                      ordrer: _model.provider?.myServices?.length,
-                      petAccepted: _model.dropDownValue2,
-                      price: double.tryParse(_model.textController.text),
-                      unit: _model.dropDownValue3,
+                  var servicesRecordReference = ServicesRecord.collection.doc();
+                  await servicesRecordReference.set(createServicesRecordData(
+                    createdTime: getCurrentTimestamp,
+                    serviceName: _model.dropDownValue1,
+                    ordrer: _model.provider?.myServices?.length,
+                    petAccepted: _model.dropDownValue2,
+                    price: double.tryParse(_model.textController.text),
+                    unit: _model.dropDownValue3,
+                  ));
+                  _model.newService = ServicesRecord.getDocumentFromData(
+                      createServicesRecordData(
+                        createdTime: getCurrentTimestamp,
+                        serviceName: _model.dropDownValue1,
+                        ordrer: _model.provider?.myServices?.length,
+                        petAccepted: _model.dropDownValue2,
+                        price: double.tryParse(_model.textController.text),
+                        unit: _model.dropDownValue3,
+                      ),
+                      servicesRecordReference);
+
+                  await _model.provider!.reference.update({
+                    ...mapToFirestore(
+                      {
+                        'my_services': FieldValue.arrayUnion(
+                            [_model.newService?.reference]),
+                      },
                     ),
-                    servicesRecordReference);
-
-                await _model.provider!.reference.update({
-                  ...mapToFirestore(
-                    {
-                      'my_services':
-                          FieldValue.arrayUnion([_model.newService?.reference]),
-                    },
-                  ),
-                });
-                Navigator.pop(context);
+                  });
+                  Navigator.pop(context);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Tous les champs sont obligatoire',
+                        style: TextStyle(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                        ),
+                      ),
+                      duration: Duration(milliseconds: 4000),
+                      backgroundColor: FlutterFlowTheme.of(context).error,
+                    ),
+                  );
+                }
 
                 safeSetState(() {});
               },

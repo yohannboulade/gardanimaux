@@ -188,17 +188,39 @@ class _CardPetSitterWidgetState extends State<CardPetSitterWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryBackground,
                                             ),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(0.0),
-                                              child: Image.network(
-                                                valueOrDefault<String>(
-                                                  pageViewPhotosRecord.photoUrl,
-                                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxdAOY_-vITFVI-ej84s2U_ErxhOly-z3y_Q&s',
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed(
+                                                  PetsitterWidget.routeName,
+                                                  queryParameters: {
+                                                    'providerReference':
+                                                        serializeParam(
+                                                      cardContainerProviderRecord
+                                                          .reference,
+                                                      ParamType
+                                                          .DocumentReference,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(0.0),
+                                                child: Image.network(
+                                                  valueOrDefault<String>(
+                                                    pageViewPhotosRecord
+                                                        .photoUrl,
+                                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxdAOY_-vITFVI-ej84s2U_ErxhOly-z3y_Q&s',
+                                                  ),
+                                                  width: double.infinity,
+                                                  height: double.infinity,
+                                                  fit: BoxFit.cover,
                                                 ),
-                                                width: double.infinity,
-                                                height: double.infinity,
-                                                fit: BoxFit.cover,
                                               ),
                                             ),
                                           );

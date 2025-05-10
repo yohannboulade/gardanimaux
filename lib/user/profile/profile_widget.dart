@@ -524,7 +524,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                 icon: Icon(
                                                   Icons.history_sharp,
                                                 ),
-                                                title: 'Mes missions',
+                                                title: 'Mes commandes',
                                                 activeDivider: false,
                                               ),
                                             ),
@@ -532,189 +532,206 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         ].divide(SizedBox(height: 8.0)),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          24.0, 0.0, 24.0, 0.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Row(
+                                    if (currentUserDocument?.isProvider != null)
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            24.0, 0.0, 24.0, 0.0),
+                                        child: AuthUserStreamWidget(
+                                          builder: (context) => Column(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Expanded(
-                                                child: Text(
-                                                  'Paramètre de Pet Sitter',
-                                                  maxLines: 1,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .headlineMedium
-                                                      .override(
-                                                        font: GoogleFonts.rubik(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .headlineMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .headlineMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineMedium
-                                                                .fontStyle,
-                                                      ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      'Paramètre de Pet Sitter',
+                                                      maxLines: 1,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .headlineMedium
+                                                              .override(
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .rubik(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineMedium
+                                                                    .fontStyle,
+                                                              ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  context.pushNamed(
+                                                      PetsitterDataWidget
+                                                          .routeName);
+                                                },
+                                                child: wrapWithModel(
+                                                  model: _model
+                                                      .profileSettingItemsModel3,
+                                                  updateCallback: () =>
+                                                      safeSetState(() {}),
+                                                  child:
+                                                      ProfileSettingItemsWidget(
+                                                    icon: Icon(
+                                                      Icons.business,
+                                                    ),
+                                                    title:
+                                                        'Informations professionnelle',
+                                                    activeDivider: false,
+                                                  ),
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              context.pushNamed(
-                                                  PetsitterDataWidget
-                                                      .routeName);
-                                            },
-                                            child: wrapWithModel(
-                                              model: _model
-                                                  .profileSettingItemsModel3,
-                                              updateCallback: () =>
-                                                  safeSetState(() {}),
-                                              child: ProfileSettingItemsWidget(
-                                                icon: Icon(
-                                                  Icons.business,
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  context.pushNamed(
+                                                      PetsitterUpdateWidget
+                                                          .routeName);
+                                                },
+                                                child: wrapWithModel(
+                                                  model: _model
+                                                      .profileSettingItemsModel4,
+                                                  updateCallback: () =>
+                                                      safeSetState(() {}),
+                                                  child:
+                                                      ProfileSettingItemsWidget(
+                                                    icon: Icon(
+                                                      Icons
+                                                          .contact_page_outlined,
+                                                    ),
+                                                    title:
+                                                        'Modifier ma page Pet Sitter',
+                                                    activeDivider: false,
+                                                  ),
                                                 ),
-                                                title:
-                                                    'Information professionnelle',
-                                                activeDivider: false,
                                               ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              context.pushNamed(
-                                                  PetsitterUpdateWidget
-                                                      .routeName);
-                                            },
-                                            child: wrapWithModel(
-                                              model: _model
-                                                  .profileSettingItemsModel4,
-                                              updateCallback: () =>
-                                                  safeSetState(() {}),
-                                              child: ProfileSettingItemsWidget(
-                                                icon: Icon(
-                                                  Icons.contact_page_outlined,
+                                              wrapWithModel(
+                                                model: _model
+                                                    .profileSettingItemsModel5,
+                                                updateCallback: () =>
+                                                    safeSetState(() {}),
+                                                child:
+                                                    ProfileSettingItemsWidget(
+                                                  icon: Icon(
+                                                    Icons.euro,
+                                                  ),
+                                                  title:
+                                                      'Paiements et versements',
+                                                  activeDivider: false,
                                                 ),
-                                                title:
-                                                    'Modifier ma page Pet Sitter',
-                                                activeDivider: false,
                                               ),
-                                            ),
+                                            ].divide(SizedBox(height: 8.0)),
                                           ),
-                                          wrapWithModel(
-                                            model: _model
-                                                .profileSettingItemsModel5,
-                                            updateCallback: () =>
-                                                safeSetState(() {}),
-                                            child: ProfileSettingItemsWidget(
-                                              icon: Icon(
-                                                Icons.euro,
-                                              ),
-                                              title: 'Paiements et versements',
-                                              activeDivider: false,
-                                            ),
-                                          ),
-                                        ].divide(SizedBox(height: 8.0)),
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          24.0, 0.0, 24.0, 0.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Row(
+                                    if (currentUserDocument?.isProvider != null)
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            24.0, 0.0, 24.0, 0.0),
+                                        child: AuthUserStreamWidget(
+                                          builder: (context) => Column(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Expanded(
-                                                child: Text(
-                                                  'Formation',
-                                                  maxLines: 1,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .headlineMedium
-                                                      .override(
-                                                        font: GoogleFonts.rubik(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .headlineMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .headlineMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineMedium
-                                                                .fontStyle,
-                                                      ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      'Formation',
+                                                      maxLines: 1,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .headlineMedium
+                                                              .override(
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .rubik(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineMedium
+                                                                    .fontStyle,
+                                                              ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  context.pushNamed(
+                                                      VideoPageWidget
+                                                          .routeName);
+                                                },
+                                                child: wrapWithModel(
+                                                  model: _model
+                                                      .profileSettingItemsModel6,
+                                                  updateCallback: () =>
+                                                      safeSetState(() {}),
+                                                  child:
+                                                      ProfileSettingItemsWidget(
+                                                    icon: Icon(
+                                                      Icons
+                                                          .video_collection_outlined,
+                                                    ),
+                                                    title:
+                                                        'Formation Pet Sitter',
+                                                    activeDivider: false,
+                                                  ),
                                                 ),
                                               ),
-                                            ],
+                                            ].divide(SizedBox(height: 8.0)),
                                           ),
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              context.pushNamed(
-                                                  VideoPageWidget.routeName);
-                                            },
-                                            child: wrapWithModel(
-                                              model: _model
-                                                  .profileSettingItemsModel6,
-                                              updateCallback: () =>
-                                                  safeSetState(() {}),
-                                              child: ProfileSettingItemsWidget(
-                                                icon: Icon(
-                                                  Icons
-                                                      .video_collection_outlined,
-                                                ),
-                                                title: 'Formation Pet Sitter',
-                                                activeDivider: false,
-                                              ),
-                                            ),
-                                          ),
-                                        ].divide(SizedBox(height: 8.0)),
+                                        ),
                                       ),
-                                    ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           24.0, 0.0, 24.0, 0.0),
@@ -760,19 +777,26 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               ),
                                             ],
                                           ),
-                                          wrapWithModel(
-                                            model: _model
-                                                .profileSettingItemsModel7,
-                                            updateCallback: () =>
-                                                safeSetState(() {}),
-                                            child: ProfileSettingItemsWidget(
-                                              icon: Icon(
-                                                Icons.map_outlined,
+                                          if (responsiveVisibility(
+                                            context: context,
+                                            phone: false,
+                                            tablet: false,
+                                            tabletLandscape: false,
+                                            desktop: false,
+                                          ))
+                                            wrapWithModel(
+                                              model: _model
+                                                  .profileSettingItemsModel7,
+                                              updateCallback: () =>
+                                                  safeSetState(() {}),
+                                              child: ProfileSettingItemsWidget(
+                                                icon: Icon(
+                                                  Icons.map_outlined,
+                                                ),
+                                                title: 'Foire aux questions',
+                                                activeDivider: false,
                                               ),
-                                              title: 'Foire aux questions',
-                                              activeDivider: false,
                                             ),
-                                          ),
                                           InkWell(
                                             splashColor: Colors.transparent,
                                             focusColor: Colors.transparent,
@@ -799,20 +823,27 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               ),
                                             ),
                                           ),
-                                          wrapWithModel(
-                                            model: _model
-                                                .profileSettingItemsModel8,
-                                            updateCallback: () =>
-                                                safeSetState(() {}),
-                                            child: ProfileSettingItemsWidget(
-                                              icon: Icon(
-                                                Icons.edit_outlined,
+                                          if (responsiveVisibility(
+                                            context: context,
+                                            phone: false,
+                                            tablet: false,
+                                            tabletLandscape: false,
+                                            desktop: false,
+                                          ))
+                                            wrapWithModel(
+                                              model: _model
+                                                  .profileSettingItemsModel8,
+                                              updateCallback: () =>
+                                                  safeSetState(() {}),
+                                              child: ProfileSettingItemsWidget(
+                                                icon: Icon(
+                                                  Icons.edit_outlined,
+                                                ),
+                                                title:
+                                                    'Faites nous vos propositions',
+                                                activeDivider: true,
                                               ),
-                                              title:
-                                                  'Faites nous vos propositions',
-                                              activeDivider: true,
                                             ),
-                                          ),
                                         ].divide(SizedBox(height: 8.0)),
                                       ),
                                     ),

@@ -854,6 +854,7 @@ class _NewPetsitter3WidgetState extends State<NewPetsitter3Widget> {
                                 (_model.providerStripe?.jsonBody ?? ''),
                                 r'''$.id''',
                               ).toString(),
+                              pageTitle: currentUserDisplayName,
                             ));
                             await showDialog(
                               context: context,

@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/components/main_menu_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_place_picker.dart';
@@ -7,11 +8,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/place.dart';
+import '/flutter_flow/upload_data.dart';
 import 'dart:io';
 import 'dart:ui';
-import '/flutter_flow/random_data_util.dart' as random_data;
 import '/index.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -65,6 +67,8 @@ class _PersonalDataWidgetState extends State<PersonalDataWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -438,19 +442,160 @@ class _PersonalDataWidgetState extends State<PersonalDataWidget> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                Container(
-                                                  width: 120.0,
-                                                  height: 120.0,
-                                                  clipBehavior: Clip.antiAlias,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Image.network(
-                                                    random_data.randomImageUrl(
-                                                      0,
-                                                      0,
+                                                AuthUserStreamWidget(
+                                                  builder: (context) => InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      final selectedMedia =
+                                                          await selectMediaWithSourceBottomSheet(
+                                                        context: context,
+                                                        allowPhoto: true,
+                                                      );
+                                                      if (selectedMedia !=
+                                                              null &&
+                                                          selectedMedia.every((m) =>
+                                                              validateFileFormat(
+                                                                  m.storagePath,
+                                                                  context))) {
+                                                        safeSetState(() => _model
+                                                                .isDataUploading =
+                                                            true);
+                                                        var selectedUploadedFiles =
+                                                            <FFUploadedFile>[];
+
+                                                        var downloadUrls =
+                                                            <String>[];
+                                                        try {
+                                                          selectedUploadedFiles =
+                                                              selectedMedia
+                                                                  .map((m) =>
+                                                                      FFUploadedFile(
+                                                                        name: m
+                                                                            .storagePath
+                                                                            .split('/')
+                                                                            .last,
+                                                                        bytes: m
+                                                                            .bytes,
+                                                                        height: m
+                                                                            .dimensions
+                                                                            ?.height,
+                                                                        width: m
+                                                                            .dimensions
+                                                                            ?.width,
+                                                                        blurHash:
+                                                                            m.blurHash,
+                                                                      ))
+                                                                  .toList();
+
+                                                          downloadUrls =
+                                                              (await Future
+                                                                      .wait(
+                                                            selectedMedia.map(
+                                                              (m) async =>
+                                                                  await uploadData(
+                                                                      m.storagePath,
+                                                                      m.bytes),
+                                                            ),
+                                                          ))
+                                                                  .where((u) =>
+                                                                      u != null)
+                                                                  .map(
+                                                                      (u) => u!)
+                                                                  .toList();
+                                                        } finally {
+                                                          _model.isDataUploading =
+                                                              false;
+                                                        }
+                                                        if (selectedUploadedFiles
+                                                                    .length ==
+                                                                selectedMedia
+                                                                    .length &&
+                                                            downloadUrls
+                                                                    .length ==
+                                                                selectedMedia
+                                                                    .length) {
+                                                          safeSetState(() {
+                                                            _model.uploadedLocalFile =
+                                                                selectedUploadedFiles
+                                                                    .first;
+                                                            _model.uploadedFileUrl =
+                                                                downloadUrls
+                                                                    .first;
+                                                          });
+                                                        } else {
+                                                          safeSetState(() {});
+                                                          return;
+                                                        }
+                                                      }
+
+                                                      if (currentUserPhoto !=
+                                                              null &&
+                                                          currentUserPhoto !=
+                                                              '') {
+                                                        FFAppState()
+                                                                .ptohoUrlTemp =
+                                                            currentUserPhoto;
+                                                        safeSetState(() {});
+
+                                                        await currentUserReference!
+                                                            .update(
+                                                                createUsersRecordData(
+                                                          photoUrl: _model
+                                                              .uploadedFileUrl,
+                                                        ));
+                                                        await FirebaseStorage
+                                                            .instance
+                                                            .refFromURL(
+                                                                FFAppState()
+                                                                    .ptohoUrlTemp)
+                                                            .delete();
+                                                      } else {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            content: Text(
+                                                              'Erreur de chargement',
+                                                              style: TextStyle(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
+                                                              ),
+                                                            ),
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    4000),
+                                                            backgroundColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .error,
+                                                          ),
+                                                        );
+                                                      }
+                                                    },
+                                                    child: Container(
+                                                      width: 120.0,
+                                                      height: 120.0,
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Image.network(
+                                                        valueOrDefault<String>(
+                                                          currentUserPhoto,
+                                                          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png',
+                                                        ),
+                                                        fit: BoxFit.cover,
+                                                      ),
                                                     ),
-                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
                                               ],

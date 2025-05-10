@@ -21,7 +21,6 @@ import 'package:collection/collection.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -57,14 +56,6 @@ class PetsitterUpdateModel extends FlutterFlowModel<PetsitterUpdateWidget> {
   FocusNode? textFieldFocusNode3;
   TextEditingController? textController3;
   String? Function(BuildContext, String?)? textController3Validator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode4;
-  TextEditingController? textController4;
-  String? Function(BuildContext, String?)? textController4Validator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode5;
-  TextEditingController? textController5;
-  String? Function(BuildContext, String?)? textController5Validator;
   // State field(s) for PlacePicker widget.
   FFPlace placePickerValue = FFPlace();
   // Model for main_menu component.
@@ -85,12 +76,6 @@ class PetsitterUpdateModel extends FlutterFlowModel<PetsitterUpdateWidget> {
 
     textFieldFocusNode3?.dispose();
     textController3?.dispose();
-
-    textFieldFocusNode4?.dispose();
-    textController4?.dispose();
-
-    textFieldFocusNode5?.dispose();
-    textController5?.dispose();
 
     mainMenuModel.dispose();
   }
