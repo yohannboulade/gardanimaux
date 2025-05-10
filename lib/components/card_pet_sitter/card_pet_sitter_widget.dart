@@ -345,34 +345,28 @@ class _CardPetSitterWidgetState extends State<CardPetSitterWidget> {
                                         ),
                                   ),
                                 ),
-                                if ((cardContainerProviderRecord.rating ==
-                                        0.0) &&
-                                    (cardContainerProviderRecord.rating ==
-                                        null))
-                                  Text(
-                                    cardContainerProviderRecord.rating
-                                        .toString(),
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          font: GoogleFonts.rubik(
-                                            fontWeight: FontWeight.w600,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .fontStyle,
-                                          ),
-                                          color: FlutterFlowTheme.of(context)
-                                              .tertiary,
-                                          fontSize: 18.0,
-                                          letterSpacing: 0.0,
+                                Text(
+                                  cardContainerProviderRecord.rating.toString(),
+                                  style: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        font: GoogleFonts.rubik(
                                           fontWeight: FontWeight.w600,
                                           fontStyle:
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall
                                                   .fontStyle,
                                         ),
-                                  ),
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiary,
+                                        fontSize: 18.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
+                                      ),
+                                ),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
