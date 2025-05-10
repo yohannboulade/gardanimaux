@@ -57,7 +57,8 @@
     <string>Pour ajouté des photos de profil</string>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>Pour ajouté des photos de profil</string>
-
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Pour géolocaliser les clients et les petsitters à proximité</string>
 
 
 

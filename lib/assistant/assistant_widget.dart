@@ -462,9 +462,9 @@ class _AssistantWidgetState extends State<AssistantWidget> {
                               controller: _model.textController4,
                               focusNode: _model.textFieldFocusNode4,
                               autofocus: false,
-                              textInputAction: TextInputAction.done,
                               obscureText: false,
                               decoration: InputDecoration(
+                                alignLabelWithHint: true,
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),

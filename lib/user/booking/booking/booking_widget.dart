@@ -16,6 +16,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'booking_model.dart';
@@ -25,9 +26,11 @@ class BookingWidget extends StatefulWidget {
   const BookingWidget({
     super.key,
     required this.providerId,
+    this.serviceId,
   });
 
   final DocumentReference? providerId;
+  final DocumentReference? serviceId;
 
   @override
   State<BookingWidget> createState() => _BookingWidgetState();
@@ -46,6 +49,14 @@ class _BookingWidgetState extends State<BookingWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => BookingModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget!.serviceId != null) {
+        _model.serviceId = widget!.serviceId;
+        safeSetState(() {});
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -1649,7 +1660,7 @@ class _BookingWidgetState extends State<BookingWidget> {
                                     paymentResponse.errorMessage != null) {
                                   showSnackbar(
                                     context,
-                                    'Error: ${paymentResponse.errorMessage}',
+                                    'Le paiement à échoué',
                                   );
                                 }
                                 _model.paymentId =

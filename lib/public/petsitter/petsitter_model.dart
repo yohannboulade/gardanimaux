@@ -4,6 +4,7 @@ import '/components/certificate_widget.dart';
 import '/components/info/info_widget.dart';
 import '/components/lieu/lieu_widget.dart';
 import '/components/separateur/separateur_widget.dart';
+import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -36,6 +37,9 @@ class PetsitterModel extends FlutterFlowModel<PetsitterWidget> {
   late SeparateurModel separateurModel2;
   // Model for certificate component.
   late CertificateModel certificateModel;
+  // State field(s) for GoogleMap widget.
+  LatLng? googleMapsCenter;
+  final googleMapsController = Completer<GoogleMapController>();
   // Model for info component.
   late InfoModel infoModel;
   // Model for lieu component.

@@ -446,6 +446,42 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "google_maps",
+      "rootUri": "file:///Users/yohann/.pub-cache/hosted/pub.dev/google_maps-8.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "google_maps_flutter",
+      "rootUri": "file:///Users/yohann/.pub-cache/hosted/pub.dev/google_maps_flutter-2.9.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "google_maps_flutter_android",
+      "rootUri": "file:///Users/yohann/.pub-cache/hosted/pub.dev/google_maps_flutter_android-2.14.7",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "google_maps_flutter_ios",
+      "rootUri": "file:///Users/yohann/.pub-cache/hosted/pub.dev/google_maps_flutter_ios-2.13.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "google_maps_flutter_platform_interface",
+      "rootUri": "file:///Users/yohann/.pub-cache/hosted/pub.dev/google_maps_flutter_platform_interface-2.9.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "google_maps_flutter_web",
+      "rootUri": "file:///Users/yohann/.pub-cache/hosted/pub.dev/google_maps_flutter_web-0.5.10",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "google_maps_webservice",
       "rootUri": "file:///Users/yohann/.pub-cache/git/google_maps_webservice-1588c27229ab48665635acb65c090d6a658da6fc/",
       "packageUri": "lib/",
@@ -748,6 +784,12 @@
     {
       "name": "rxdart",
       "rootUri": "file:///Users/yohann/.pub-cache/hosted/pub.dev/rxdart-0.27.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "sanitize_html",
+      "rootUri": "file:///Users/yohann/.pub-cache/hosted/pub.dev/sanitize_html-2.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -1076,7 +1118,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2025-05-09T08:54:25.097820Z",
+  "generated": "2025-05-10T14:56:18.185805Z",
   "generator": "pub",
   "generatorVersion": "3.6.1",
   "flutterRoot": "file:///Users/yohann/development/flutter",

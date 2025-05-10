@@ -198,7 +198,7 @@ class _AuthentificationWidgetState extends State<AuthentificationWidget>
                           padding: EdgeInsets.all(12.0),
                           child: Container(
                             width: double.infinity,
-                            height: 550.0,
+                            height: 600.0,
                             constraints: BoxConstraints(
                               maxWidth: 570.0,
                             ),

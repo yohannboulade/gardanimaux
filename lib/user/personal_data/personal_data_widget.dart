@@ -140,54 +140,6 @@ class _PersonalDataWidgetState extends State<PersonalDataWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if (responsiveVisibility(
-                      context: context,
-                      phone: false,
-                    ))
-                      Expanded(
-                        flex: 3,
-                        child: Padding(
-                          padding: EdgeInsets.all(25.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  'Devenir Pet Sitter',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.rubik(
-                                          fontWeight: FontWeight.bold,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                        color: FlutterFlowTheme.of(context)
-                                            .tertiary,
-                                        fontSize: 18.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
                 Expanded(
                   child: Container(
                     width: double.infinity,
@@ -457,6 +409,14 @@ class _PersonalDataWidgetState extends State<PersonalDataWidget> {
                                                           await selectMediaWithSourceBottomSheet(
                                                         context: context,
                                                         allowPhoto: true,
+                                                        backgroundColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        textColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .tertiary,
                                                       );
                                                       if (selectedMedia !=
                                                               null &&
@@ -473,6 +433,11 @@ class _PersonalDataWidgetState extends State<PersonalDataWidget> {
                                                         var downloadUrls =
                                                             <String>[];
                                                         try {
+                                                          showUploadMessage(
+                                                            context,
+                                                            'Uploading file...',
+                                                            showLoading: true,
+                                                          );
                                                           selectedUploadedFiles =
                                                               selectedMedia
                                                                   .map((m) =>
@@ -510,6 +475,9 @@ class _PersonalDataWidgetState extends State<PersonalDataWidget> {
                                                                       (u) => u!)
                                                                   .toList();
                                                         } finally {
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .hideCurrentSnackBar();
                                                           _model.isDataUploading =
                                                               false;
                                                         }
@@ -529,56 +497,35 @@ class _PersonalDataWidgetState extends State<PersonalDataWidget> {
                                                                 downloadUrls
                                                                     .first;
                                                           });
+                                                          showUploadMessage(
+                                                              context,
+                                                              'Success!');
                                                         } else {
                                                           safeSetState(() {});
+                                                          showUploadMessage(
+                                                              context,
+                                                              'Failed to upload data');
                                                           return;
                                                         }
                                                       }
 
-                                                      if (currentUserPhoto !=
-                                                              null &&
-                                                          currentUserPhoto !=
-                                                              '') {
-                                                        FFAppState()
-                                                                .ptohoUrlTemp =
-                                                            currentUserPhoto;
-                                                        safeSetState(() {});
+                                                      FFAppState()
+                                                              .ptohoUrlTemp =
+                                                          currentUserPhoto;
+                                                      safeSetState(() {});
 
-                                                        await currentUserReference!
-                                                            .update(
-                                                                createUsersRecordData(
-                                                          photoUrl: _model
-                                                              .uploadedFileUrl,
-                                                        ));
-                                                        await FirebaseStorage
-                                                            .instance
-                                                            .refFromURL(
-                                                                FFAppState()
-                                                                    .ptohoUrlTemp)
-                                                            .delete();
-                                                      } else {
-                                                        ScaffoldMessenger.of(
-                                                                context)
-                                                            .showSnackBar(
-                                                          SnackBar(
-                                                            content: Text(
-                                                              'Erreur de chargement',
-                                                              style: TextStyle(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
-                                                              ),
-                                                            ),
-                                                            duration: Duration(
-                                                                milliseconds:
-                                                                    4000),
-                                                            backgroundColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .error,
-                                                          ),
-                                                        );
-                                                      }
+                                                      await currentUserReference!
+                                                          .update(
+                                                              createUsersRecordData(
+                                                        photoUrl: _model
+                                                            .uploadedFileUrl,
+                                                      ));
+                                                      await FirebaseStorage
+                                                          .instance
+                                                          .refFromURL(
+                                                              FFAppState()
+                                                                  .ptohoUrlTemp)
+                                                          .delete();
                                                     },
                                                     child: Container(
                                                       width: 120.0,

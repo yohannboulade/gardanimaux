@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/card_pet_sitter/card_pet_sitter_widget.dart';
 import '/components/certificate_widget.dart';
@@ -7,6 +8,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -128,7 +130,7 @@ class _ExplorerWidgetState extends State<ExplorerWidget> {
                                           final wrapProviderRecord =
                                               wrapProviderRecordList[wrapIndex];
                                           return Container(
-                                            width: 300.0,
+                                            width: 350.0,
                                             child: Stack(
                                               children: [
                                                 CardPetSitterWidget(
@@ -151,12 +153,146 @@ class _ExplorerWidgetState extends State<ExplorerWidget> {
                                                         key: Key(
                                                             'Key4iq_${wrapIndex}_of_${wrapProviderRecordList.length}'),
                                                       ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [],
+                                                    Flexible(
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          if ((currentUserDocument
+                                                                      ?.favoriteProvider
+                                                                      ?.toList() ??
+                                                                  [])
+                                                              .contains(
+                                                                  wrapProviderRecord
+                                                                      .reference))
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(
+                                                                          10.0),
+                                                              child:
+                                                                  AuthUserStreamWidget(
+                                                                builder:
+                                                                    (context) =>
+                                                                        InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    await currentUserReference!
+                                                                        .update({
+                                                                      ...mapToFirestore(
+                                                                        {
+                                                                          'favorite_provider':
+                                                                              FieldValue.arrayRemove([
+                                                                            wrapProviderRecord.reference
+                                                                          ]),
+                                                                        },
+                                                                      ),
+                                                                    });
+
+                                                                    await wrapProviderRecord
+                                                                        .reference
+                                                                        .update({
+                                                                      ...mapToFirestore(
+                                                                        {
+                                                                          'my_followers':
+                                                                              FieldValue.arrayRemove([
+                                                                            currentUserReference
+                                                                          ]),
+                                                                        },
+                                                                      ),
+                                                                    });
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .favorite,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondary,
+                                                                    size: 30.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          if (!(currentUserDocument
+                                                                      ?.favoriteProvider
+                                                                      ?.toList() ??
+                                                                  [])
+                                                              .contains(
+                                                                  wrapProviderRecord
+                                                                      .reference))
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(
+                                                                          10.0),
+                                                              child:
+                                                                  AuthUserStreamWidget(
+                                                                builder:
+                                                                    (context) =>
+                                                                        InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    await currentUserReference!
+                                                                        .update({
+                                                                      ...mapToFirestore(
+                                                                        {
+                                                                          'favorite_provider':
+                                                                              FieldValue.arrayUnion([
+                                                                            wrapProviderRecord.reference
+                                                                          ]),
+                                                                        },
+                                                                      ),
+                                                                    });
+
+                                                                    await wrapProviderRecord
+                                                                        .reference
+                                                                        .update({
+                                                                      ...mapToFirestore(
+                                                                        {
+                                                                          'my_followers':
+                                                                              FieldValue.arrayUnion([
+                                                                            currentUserReference
+                                                                          ]),
+                                                                        },
+                                                                      ),
+                                                                    });
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .favorite_border,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondary,
+                                                                    size: 30.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ],
                                                 ),

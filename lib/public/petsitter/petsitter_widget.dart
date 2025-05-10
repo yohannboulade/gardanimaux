@@ -4,6 +4,7 @@ import '/components/certificate_widget.dart';
 import '/components/info/info_widget.dart';
 import '/components/lieu/lieu_widget.dart';
 import '/components/separateur/separateur_widget.dart';
+import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -89,6 +90,7 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
       },
       child: Scaffold(
         key: scaffoldKey,
+        resizeToAvoidBottomInset: false,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
@@ -127,11 +129,7 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                             stream: queryPhotosRecord(
                               parent: widget!.providerReference,
                               queryBuilder: (photosRecord) =>
-                                  photosRecord.where(
-                                'order',
-                                isEqualTo: 0,
-                              ),
-                              singleRecord: true,
+                                  photosRecord.orderBy('order'),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -151,14 +149,6 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                               List<PhotosRecord>
                                   galleryDesktopPhotosRecordList =
                                   snapshot.data!;
-                              // Return an empty Container when the item does not exist.
-                              if (snapshot.data!.isEmpty) {
-                                return Container();
-                              }
-                              final galleryDesktopPhotosRecord =
-                                  galleryDesktopPhotosRecordList.isNotEmpty
-                                      ? galleryDesktopPhotosRecordList.first
-                                      : null;
 
                               return Container(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
@@ -186,8 +176,8 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                               BorderRadius.circular(8.0),
                                           child: Image.network(
                                             valueOrDefault<String>(
-                                              galleryDesktopPhotosRecord
-                                                  ?.photoUrl,
+                                              galleryDesktopPhotosRecordList
+                                                  .firstOrNull?.photoUrl,
                                               'https://media.istockphoto.com/id/1222357475/vector/image-preview-icon-picture-placeholder-for-website-or-ui-ux-design-vector-illustration.jpg?s=612x612&w=0&k=20&c=KuCo-dRBYV7nz2gbk4J9w1WtTAgpTdznHu55W9FjimE=',
                                             ),
                                             fit: BoxFit.cover,
@@ -196,39 +186,11 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                       ),
                                     ),
                                     Expanded(
-                                      child: StreamBuilder<List<PhotosRecord>>(
-                                        stream: queryPhotosRecord(
-                                          parent: widget!.providerReference,
-                                          queryBuilder: (photosRecord) =>
-                                              photosRecord
-                                                  .where(
-                                                    'order',
-                                                    isNotEqualTo: 0,
-                                                  )
-                                                  .orderBy('order'),
-                                        ),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                          List<PhotosRecord>
-                                              wrapPhotosRecordList =
-                                              snapshot.data!;
+                                      child: Builder(
+                                        builder: (context) {
+                                          final photo =
+                                              galleryDesktopPhotosRecordList
+                                                  .toList();
 
                                           return Wrap(
                                             spacing: 15.0,
@@ -242,20 +204,24 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                                 VerticalDirection.down,
                                             clipBehavior: Clip.none,
                                             children: List.generate(
-                                                wrapPhotosRecordList.length,
-                                                (wrapIndex) {
-                                              final wrapPhotosRecord =
-                                                  wrapPhotosRecordList[
-                                                      wrapIndex];
-                                              return ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                                child: Image.network(
-                                                  galleryDesktopPhotosRecord!
-                                                      .photoUrl,
-                                                  width: 200.0,
-                                                  height: 200.0,
-                                                  fit: BoxFit.cover,
+                                                photo.length, (photoIndex) {
+                                              final photoItem =
+                                                  photo[photoIndex];
+                                              return Visibility(
+                                                visible: photoItem.order != 0,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  child: Image.network(
+                                                    valueOrDefault<String>(
+                                                      photoItem.photoUrl,
+                                                      'https://media.istockphoto.com/id/1222357475/vector/image-preview-icon-picture-placeholder-for-website-or-ui-ux-design-vector-illustration.jpg?s=612x612&w=0&k=20&c=KuCo-dRBYV7nz2gbk4J9w1WtTAgpTdznHu55W9FjimE=',
+                                                    ),
+                                                    width: 200.0,
+                                                    height: 200.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
                                               );
                                             }),
@@ -277,11 +243,7 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                             stream: queryPhotosRecord(
                               parent: widget!.providerReference,
                               queryBuilder: (photosRecord) =>
-                                  photosRecord.where(
-                                'order',
-                                isEqualTo: 0,
-                              ),
-                              singleRecord: true,
+                                  photosRecord.orderBy('order'),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -300,14 +262,6 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                               }
                               List<PhotosRecord> galleryMobilePhotosRecordList =
                                   snapshot.data!;
-                              // Return an empty Container when the item does not exist.
-                              if (snapshot.data!.isEmpty) {
-                                return Container();
-                              }
-                              final galleryMobilePhotosRecord =
-                                  galleryMobilePhotosRecordList.isNotEmpty
-                                      ? galleryMobilePhotosRecordList.first
-                                      : null;
 
                               return Container(
                                 width: double.infinity,
@@ -322,7 +276,8 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                       borderRadius: BorderRadius.circular(8.0),
                                       child: Image.network(
                                         valueOrDefault<String>(
-                                          galleryMobilePhotosRecord?.photoUrl,
+                                          galleryMobilePhotosRecordList
+                                              .firstOrNull?.photoUrl,
                                           'https://media.istockphoto.com/id/1222357475/vector/image-preview-icon-picture-placeholder-for-website-or-ui-ux-design-vector-illustration.jpg?s=612x612&w=0&k=20&c=KuCo-dRBYV7nz2gbk4J9w1WtTAgpTdznHu55W9FjimE=',
                                         ),
                                         width: double.infinity,
@@ -333,65 +288,50 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 8.0, 0.0, 0.0),
-                                      child: StreamBuilder<List<PhotosRecord>>(
-                                        stream: queryPhotosRecord(
-                                          parent: widget!.providerReference,
-                                          queryBuilder: (photosRecord) =>
-                                              photosRecord
-                                                  .where(
-                                                    'order',
-                                                    isNotEqualTo: 0,
-                                                  )
-                                                  .orderBy('order'),
-                                        ),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                          List<PhotosRecord>
-                                              rowPhotosRecordList =
-                                              snapshot.data!;
+                                      child: Builder(
+                                        builder: (context) {
+                                          final itemMobile =
+                                              galleryMobilePhotosRecordList
+                                                  .toList();
 
                                           return SingleChildScrollView(
                                             scrollDirection: Axis.horizontal,
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: List.generate(
-                                                      rowPhotosRecordList
-                                                          .length, (rowIndex) {
-                                                final rowPhotosRecord =
-                                                    rowPhotosRecordList[
-                                                        rowIndex];
-                                                return ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  child: Image.network(
-                                                    rowPhotosRecord.photoUrl,
-                                                    width: 150.0,
-                                                    height: 150.0,
-                                                    fit: BoxFit.cover,
+                                                  itemMobile.length,
+                                                  (itemMobileIndex) {
+                                                final itemMobileItem =
+                                                    itemMobile[itemMobileIndex];
+                                                return Visibility(
+                                                  visible:
+                                                      itemMobileItem.order != 0,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                    child: Image.network(
+                                                      valueOrDefault<String>(
+                                                        itemMobileItem.photoUrl,
+                                                        'https://media.istockphoto.com/id/1222357475/vector/image-preview-icon-picture-placeholder-for-website-or-ui-ux-design-vector-illustration.jpg?s=612x612&w=0&k=20&c=KuCo-dRBYV7nz2gbk4J9w1WtTAgpTdznHu55W9FjimE=',
+                                                      ),
+                                                      width: 150.0,
+                                                      height: 150.0,
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
                                                 );
-                                              })
-                                                  .divide(SizedBox(width: 8.0))
-                                                  .addToStart(
-                                                      SizedBox(width: 8.0)),
+                                              }).divide(
+                                                SizedBox(width: 8.0),
+                                                filterFn: (itemMobileIndex) {
+                                                  final itemMobileItem =
+                                                      itemMobile[
+                                                          itemMobileIndex];
+                                                  return itemMobileItem.order !=
+                                                      0;
+                                                },
+                                              ).addToStart(
+                                                  SizedBox(width: 8.0)),
                                             ),
                                           );
                                         },
@@ -434,7 +374,13 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                     ),
                               ),
                               Text(
-                                '${stackProviderRecord.city} (${stackProviderRecord.codeZip}), à TO DO de vous',
+                                '${valueOrDefault<String>(
+                                  stackProviderRecord.city,
+                                  'Non saisie',
+                                )} (${valueOrDefault<String>(
+                                  stackProviderRecord.codeZip,
+                                  'Non saisie',
+                                )})',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -962,10 +908,10 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .secondaryText,
-                                                          size: 32.0,
+                                                          size: 30.0,
                                                         ),
                                                         Text(
-                                                          'Chat',
+                                                          'Chats',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
@@ -1009,10 +955,10 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .secondaryText,
-                                                          size: 32.0,
+                                                          size: 30.0,
                                                         ),
                                                         Text(
-                                                          'Chien',
+                                                          'Chiens',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
@@ -1056,10 +1002,61 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .secondaryText,
-                                                          size: 32.0,
+                                                          size: 30.0,
                                                         ),
                                                         Text(
-                                                          'Lapin',
+                                                          'Petit \nmamifaires',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .rubik(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                                fontSize: 18.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        FaIcon(
+                                                          FontAwesomeIcons.fish,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          size: 30.0,
+                                                        ),
+                                                        Text(
+                                                          'Poissons',
+                                                          textAlign:
+                                                              TextAlign.center,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
@@ -1154,22 +1151,63 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                               ],
                                             ),
                                           ),
-                                          Container(
-                                            width: double.infinity,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
+                                          if (stackProviderRecord.latLng !=
+                                              null)
+                                            Container(
+                                              width: double.infinity,
+                                              height: 500.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                              ),
+                                              child: AuthUserStreamWidget(
+                                                builder: (context) =>
+                                                    Builder(builder: (context) {
+                                                  final _googleMapMarker =
+                                                      stackProviderRecord
+                                                          .latLng;
+                                                  return FlutterFlowGoogleMap(
+                                                    controller: _model
+                                                        .googleMapsController,
+                                                    onCameraIdle: (latLng) =>
+                                                        _model.googleMapsCenter =
+                                                            latLng,
+                                                    initialLocation: _model
+                                                            .googleMapsCenter ??=
+                                                        stackProviderRecord
+                                                            .latLng!,
+                                                    markers: [
+                                                      if (_googleMapMarker !=
+                                                          null)
+                                                        FlutterFlowMarker(
+                                                          _googleMapMarker
+                                                              .serialize(),
+                                                          _googleMapMarker,
+                                                        ),
+                                                    ],
+                                                    markerColor:
+                                                        GoogleMarkerColor
+                                                            .yellow,
+                                                    mapType: MapType.normal,
+                                                    style:
+                                                        GoogleMapStyle.standard,
+                                                    initialZoom: 14.0,
+                                                    allowInteraction: true,
+                                                    allowZoom: false,
+                                                    showZoomControls: false,
+                                                    showLocation:
+                                                        currentUserDocument
+                                                                ?.latLng !=
+                                                            null,
+                                                    showCompass: false,
+                                                    showMapToolbar: false,
+                                                    showTraffic: false,
+                                                    centerMapOnMarkerTap: true,
+                                                  );
+                                                }),
+                                              ),
                                             ),
-                                          ),
-                                          Container(
-                                            width: double.infinity,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                            ),
-                                          ),
                                         ].divide(SizedBox(height: 10.0)),
                                       ),
                                       Column(
@@ -1247,8 +1285,7 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Column(
                                                       mainAxisSize:
@@ -1262,10 +1299,10 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .secondaryText,
-                                                          size: 32.0,
+                                                          size: 30.0,
                                                         ),
                                                         Text(
-                                                          'Promenade \nde chien',
+                                                          'Promenade',
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: FlutterFlowTheme
@@ -1307,14 +1344,15 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                                               .center,
                                                       children: [
                                                         Icon(
-                                                          Icons.house_sharp,
+                                                          Icons
+                                                              .home_work_outlined,
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .secondaryText,
-                                                          size: 32.0,
+                                                          size: 30.0,
                                                         ),
                                                         Text(
-                                                          'Passage à\ndomicile',
+                                                          'Visite',
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: FlutterFlowTheme
@@ -1355,15 +1393,16 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                                           MainAxisAlignment
                                                               .center,
                                                       children: [
-                                                        FaIcon(
-                                                          FontAwesomeIcons.dog,
+                                                        Icon(
+                                                          Icons
+                                                              .beach_access_outlined,
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .secondaryText,
-                                                          size: 32.0,
+                                                          size: 30.0,
                                                         ),
                                                         Text(
-                                                          'Garde d’animaux ',
+                                                          'Séjour',
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: FlutterFlowTheme
@@ -1397,7 +1436,220 @@ class _PetsitterWidgetState extends State<PetsitterWidget>
                                                         ),
                                                       ],
                                                     ),
-                                                  ],
+                                                  ].divide(
+                                                      SizedBox(width: 50.0)),
+                                                ),
+                                                Builder(
+                                                  builder: (context) {
+                                                    final services =
+                                                        stackProviderRecord
+                                                            .myServices
+                                                            .toList();
+
+                                                    return ListView.separated(
+                                                      padding: EdgeInsets.zero,
+                                                      primary: false,
+                                                      shrinkWrap: true,
+                                                      scrollDirection:
+                                                          Axis.vertical,
+                                                      itemCount:
+                                                          services.length,
+                                                      separatorBuilder: (_,
+                                                              __) =>
+                                                          SizedBox(height: 5.0),
+                                                      itemBuilder: (context,
+                                                          servicesIndex) {
+                                                        final servicesItem =
+                                                            services[
+                                                                servicesIndex];
+                                                        return StreamBuilder<
+                                                            ServicesRecord>(
+                                                          stream: ServicesRecord
+                                                              .getDocument(
+                                                                  servicesItem),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            // Customize what your widget looks like when it's loading.
+                                                            if (!snapshot
+                                                                .hasData) {
+                                                              return Center(
+                                                                child: SizedBox(
+                                                                  width: 50.0,
+                                                                  height: 50.0,
+                                                                  child:
+                                                                      CircularProgressIndicator(
+                                                                    valueColor:
+                                                                        AlwaysStoppedAnimation<
+                                                                            Color>(
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primary,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            }
+
+                                                            final containerServicesRecord =
+                                                                snapshot.data!;
+
+                                                            return Container(
+                                                              decoration:
+                                                                  BoxDecoration(),
+                                                              child: Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        16.0,
+                                                                        0.0,
+                                                                        16.0,
+                                                                        0.0),
+                                                                child: InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    if (currentUserReference !=
+                                                                        null) {
+                                                                      await showModalBottomSheet(
+                                                                        isScrollControlled:
+                                                                            true,
+                                                                        backgroundColor:
+                                                                            FlutterFlowTheme.of(context).primaryBackground,
+                                                                        enableDrag:
+                                                                            false,
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (context) {
+                                                                          return GestureDetector(
+                                                                            onTap:
+                                                                                () {
+                                                                              FocusScope.of(context).unfocus();
+                                                                              FocusManager.instance.primaryFocus?.unfocus();
+                                                                            },
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: MediaQuery.viewInsetsOf(context),
+                                                                              child: Container(
+                                                                                height: MediaQuery.sizeOf(context).height * 0.99,
+                                                                                child: BookingWidget(
+                                                                                  providerId: stackProviderRecord.reference,
+                                                                                  serviceId: containerServicesRecord.reference,
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                      ).then((value) =>
+                                                                          safeSetState(
+                                                                              () {}));
+                                                                    } else {
+                                                                      context.pushNamed(
+                                                                          AuthentificationWidget
+                                                                              .routeName);
+                                                                    }
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    width: double
+                                                                        .infinity,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryBackground,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8.0),
+                                                                      border:
+                                                                          Border
+                                                                              .all(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .alternate,
+                                                                        width:
+                                                                            1.0,
+                                                                      ),
+                                                                    ),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          12.0,
+                                                                          12.0,
+                                                                          12.0,
+                                                                          12.0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children:
+                                                                            [
+                                                                          Expanded(
+                                                                            child:
+                                                                                Column(
+                                                                              mainAxisSize: MainAxisSize.min,
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                Text(
+                                                                                  containerServicesRecord.petAccepted,
+                                                                                  style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                                                        font: GoogleFonts.rubik(
+                                                                                          fontWeight: FontWeight.w600,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                        ),
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FontWeight.w600,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                      ),
+                                                                                ),
+                                                                                Text(
+                                                                                  containerServicesRecord.serviceName,
+                                                                                  style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                        font: GoogleFonts.rubik(
+                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                        ),
+                                                                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                      ),
+                                                                                ),
+                                                                                Text(
+                                                                                  '${containerServicesRecord.price.toString()}€ ${containerServicesRecord.unit}',
+                                                                                  style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                        font: GoogleFonts.rubik(
+                                                                                          fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                        ),
+                                                                                        color: FlutterFlowTheme.of(context).primary,
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                      ),
+                                                                                ),
+                                                                              ].divide(SizedBox(height: 4.0)),
+                                                                            ),
+                                                                          ),
+                                                                        ].divide(SizedBox(width: 12.0)),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                    );
+                                                  },
                                                 ),
                                               ]
                                                   .divide(
